@@ -164,7 +164,7 @@ const Register = () => {
             حساب کاربری دارید؟{" "}
             <Link
               as={RouterLink}
-              to="/AdminPanel/login"
+              to="/login"
               color={"siteTheme.blue"}
             >
               ورود

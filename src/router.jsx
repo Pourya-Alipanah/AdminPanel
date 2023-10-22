@@ -6,18 +6,18 @@ import MainLayout from "./layouts/MainLayout";
 
 const router = createBrowserRouter([
   {
-    path: "AdminPanel/",
+    path: "/",
     element : <MainLayout/>
   },
   {
     element: <IdentityLayout />,
     children: [
       {
-        path: "AdminPanel/login",
+        path: "/login",
         element: <Login />,
       },
       {
-        path: "AdminPanel/register",
+        path: "/register",
         element: <Register />,
       },
     ],

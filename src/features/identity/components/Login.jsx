@@ -132,7 +132,7 @@ const Login = () => {
             حساب کاربری ندارید؟{" "}
             <Link
               as={RouterLink}
-              to="/AdminPanel/register"
+              to="/register"
               color={"siteTheme.blue"}
             >
               ثبت نام

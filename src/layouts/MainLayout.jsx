@@ -7,7 +7,7 @@ const MainLayout = () => {
   
   useEffect(()=>{
     if (!token) {
-        navigate("/AdminPanel/login");
+        navigate("/login");
       }
   },[token])
 
