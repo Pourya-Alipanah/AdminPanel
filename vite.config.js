@@ -17,10 +17,16 @@ export default defineConfig({
       "@features": path.resolve(__dirname, "./src/features"),
       "@layouts": path.resolve(__dirname, "./src/layouts"),
       "@pages": path.resolve(__dirname, "./src/pages"),
-      "@reducer": path.resolve(__dirname, "./src/reducer"),
+      "@context": path.resolve(__dirname, "./src/context"),
       "@http-service": path.resolve(__filename, "./src/core/http-service.js"),
     },
   },
 
   plugins: [react()],
+
+  server: {
+    watch: {
+      usePolling: true,
+    }
+  },
 });

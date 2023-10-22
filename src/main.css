@@ -1,0 +1,37 @@
+@font-face {
+    font-family: iranYekan;
+    src: url(./assets/fonts/IRANYekanWebRegular.woff2) format('woff2');
+    src: url(./assets/fonts/IRANYekanWebRegular.woff) format('woff');
+    src: url(./assets/fonts/IRANYekanWebRegular.eot?#iefix) format('embedded-opentype');
+    src: url(./assets/fonts/IRANYekanWebRegular.eot);
+    src: url(./assets/fonts/IRANYekanWebRegular.otf) format('otf');
+    src: url(./assets/fonts/IRANYekanWebRegular.ttf) format('truetype');
+}
+*,html,body{
+    font-family: iranYekan !important;
+}
+body,html{
+    overflow-x: hidden !important;
+}
+*{
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    scroll-behavior: smooth !important;
+}
+::-webkit-scrollbar{
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: silver;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+
