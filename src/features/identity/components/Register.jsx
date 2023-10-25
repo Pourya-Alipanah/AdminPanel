@@ -14,24 +14,55 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link as RouterLink } from "react-router-dom";
-import {BsPersonFillAdd} from 'react-icons/bs'
+import { Link as RouterLink, useNavigate, useNavigation, useSubmit } from "react-router-dom";
+import { BsPersonFillAdd } from "react-icons/bs";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 
 const Register = () => {
+
+  const resolver = yup.object({
+    email: yup
+      .string()
+      .email("ایمیل وارد شده نامعتبر است")
+      .required("وارد کردن ایمیل الزامی است"),
+    password: yup
+      .string()
+      .min(8, "طول رمز عبور میبایست بیشتر از 8 کاراکتر باشد"),
+    confirmPassword: yup
+      .string()
+      .min(8, "تکرار رمزعبور الزامی است")
+      .oneOf([yup.ref("password"), null], "عدم تطابق رمز وارد شده"),
+  });
+
   const [showPass, setShowPass] = useState(false);
 
-  const { colorMode } = useColorMode()
+  const { colorMode } = useColorMode();
 
+  const navigation = useNavigation()
 
+  
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
+  
+  
   const {
     register,
-    watch,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(resolver) });
+  
+  
+  const isSubmitting = navigation.state !== 'idle'
+  
+  const submitForm = useSubmit()
 
   const onSubmit = (data) => {
-    console.log(data);
+    // eslint-disable-next-line no-unused-vars
+    const {confirmPassword , ...userData} = data
+
+    submitForm(userData , {method:'POST'})
   };
 
   return (
@@ -41,37 +72,25 @@ const Register = () => {
       </Heading>
 
       <VStack as={"form"} spacing={4} onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={errors.mobile}>
+        <FormControl isInvalid={errors.email}>
           <FormLabel
             fontSize={"13px"}
             fontWeight={"bold"}
             color={"siteTheme.white"}
           >
-            شماره موبایل
+            آدرس ایمیل
           </FormLabel>
           <Input
-            {...register("mobile", {
-              required: "موبایل الزامی است",
-              minLength: 11,
-              maxLength: 11,
-            })}
+            {...register("email")}
             errorBorderColor="red.500"
-            focusBorderColor={errors.mobile ? "red.500" : "siteTheme.blue"}
+            focusBorderColor={errors.email ? "red.500" : "siteTheme.blue"}
             bg={colorMode === "dark" ? "siteTheme.grey" : "siteTheme.white"}
-            type="tel"
+            type="email"
             color={colorMode === "dark" ? "siteTheme.white" : "siteTheme.grey"}
           />
-          {errors.mobile &&
-          (errors.mobile.type === "minLength" ||
-            errors.mobile.type === "maxLength") ? (
-            <FormErrorMessage fontSize={"10px"}>
-              موبایل باید 11 رقم باشد
-            </FormErrorMessage>
-          ) : (
-            <FormErrorMessage fontSize={"10px"}>
-              {errors.mobile?.message}
-            </FormErrorMessage>
-          )}
+          <FormErrorMessage fontSize={"10px"}>
+            {errors.email?.message}
+          </FormErrorMessage>
         </FormControl>
 
         <FormControl isInvalid={errors.password}>
@@ -83,9 +102,7 @@ const Register = () => {
             رمز عبور
           </FormLabel>
           <Input
-            {...register("password", {
-              required: "رمز عبور الزامی است",
-            })}
+            {...register("password")}
             errorBorderColor="red.500"
             focusBorderColor={errors.password ? "red.500" : "siteTheme.blue"}
             bg={colorMode === "dark" ? "siteTheme.grey" : "siteTheme.white"}
@@ -124,11 +141,7 @@ const Register = () => {
             تکرار رمز عبور
           </FormLabel>
           <Input
-            {...register("confirmPassword", {
-              required: "تکرار رمز عبور الزامی است",
-              validate: (value) =>
-                watch("password") !== value ? "عدم تطابق رمز وارد شده" : null,
-            })}
+            {...register("confirmPassword")}
             errorBorderColor="red.500"
             focusBorderColor={
               errors.confirmPassword ? "red.500" : "siteTheme.blue"
@@ -156,17 +169,14 @@ const Register = () => {
             alignContent={"center"}
             fontSize={"18px"}
             p={0}
+            isLoading={isSubmitting}
           >
-            ثبت نام <BsPersonFillAdd/> 
+            ثبت نام <BsPersonFillAdd />
           </Button>
           <Text fontSize={"13px"} color={"siteTheme.white"}>
             {" "}
             حساب کاربری دارید؟{" "}
-            <Link
-              as={RouterLink}
-              to="/login"
-              color={"siteTheme.blue"}
-            >
+            <Link as={RouterLink} to="/login" color={"siteTheme.blue"}>
               ورود
             </Link>{" "}
           </Text>
