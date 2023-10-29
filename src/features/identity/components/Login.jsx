@@ -11,32 +11,29 @@ import {
   Link,
   FormErrorMessage,
   useColorMode,
-  Divider,
-  Flex,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link as RouterLink, useSubmit } from "react-router-dom";
-import { GoSignIn } from "react-icons/go";
-import { FcGoogle } from "react-icons/fc";
-// eslint-disable-next-line no-unused-vars
-import { appAuth } from "@components/firebaseConfig";
 import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+  Link as RouterLink,
+  useActionData,
+  useNavigate,
+  useNavigation,
+  useRouteError,
+  useSubmit,
+} from "react-router-dom";
+import { GoSignIn } from "react-icons/go";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-const googleAuth = new GoogleAuthProvider();
+import { toast } from "react-toastify";
 
 const Login = () => {
   const resolver = yup.object({
-    email: yup
+    mobile: yup
       .string()
-      .email("ایمیل وارد شده نامعتبر است")
-      .required("وارد کردن ایمیل الزامی است"),
+      .min(11, "شماره تماس میبایست 11 رقم باشد")
+      .max(11, "شماره تماس میبایست 11 رقم باشد")
+      .required("وارد کردن شماره تماس الزامی است"),
     password: yup
       .string()
       .min(8, "طول رمز عبور میبایست بیشتر از 8 کاراکتر باشد"),
@@ -46,9 +43,11 @@ const Login = () => {
 
   const { colorMode } = useColorMode();
 
-  const auth = getAuth();
+  const submitForm = useSubmit();
 
-  const submitForm = useSubmit()
+  const navigation = useNavigation();
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -56,20 +55,76 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(resolver) });
 
+  const isSubmitting = navigation.state !== "idle";
+
   const onSubmit = (data) => {
-    submitForm(data , {method:'POST'})
+    submitForm(data, { method: "POST" });
   };
 
-  const googleSignIn = async (e) => {
-    e.preventDefault();
-    try {
-      const googleSign = await signInWithPopup(auth, googleAuth);
-      const res = googleSign.user.accessToken;
-      localStorage.setItem("token", res);
-    } catch (error) {
-      throw new Error("problem in req");
+  const isSuccsessOperation = useActionData() || false;
+
+  const routeErrors = useRouteError() || false;
+
+  const errorMessage = routeErrors.response?.data
+    .map((error) => error.code)
+    .join();
+
+  const token = localStorage.getItem("token");
+  const RedirectToastDialog = () => (
+    <>
+      <div>شما قبلا وارد شده اید</div>
+      <div>به صفحه اصلی منتقل میشوید</div>
+    </>
+  );
+  useEffect(() => {
+    if (token && !isSuccsessOperation) {
+      toast.info(<RedirectToastDialog />, {
+        position: "bottom-center",
+        autoClose: 1300,
+        pauseOnHover: false,
+        draggable: true,
+        closeButton: false,
+        theme: colorMode === "dark" ? "dark" : "light",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    if (isSuccsessOperation) {
+      toast.success("در حال ورود", {
+        position: "bottom-center",
+        autoClose: 1300,
+        pauseOnHover: false,
+        draggable: true,
+        closeButton: false,
+        theme: colorMode === "dark" ? "dark" : "light",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccsessOperation]);
+
+  useEffect(() => {
+    if (routeErrors) {
+      toast.error(
+        errorMessage === "IncorrectUserNameOrPassword"
+          ? "شماره موبایل و یا رمز عبور نادرست است"
+          : "خطای ناشناخته",
+        {
+          position: "bottom-center",
+          autoClose: 5000,
+          pauseOnHover: false,
+          draggable: true,
+          theme: colorMode === "dark" ? "dark" : "light",
+        }
+      );
+    }
+  }, [routeErrors]);
 
   return (
     <>
@@ -78,24 +133,24 @@ const Login = () => {
       </Heading>
 
       <VStack as={"form"} spacing={4} onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={errors.email}>
+        <FormControl isInvalid={errors.mobile}>
           <FormLabel
             fontSize={"13px"}
             fontWeight={"bold"}
             color={"siteTheme.white"}
           >
-            آدرس ایمیل
+            شماره موبایل
           </FormLabel>
           <Input
-            {...register("email")}
+            {...register("mobile")}
             errorBorderColor="red.500"
-            focusBorderColor={errors.email ? "red.500" : "siteTheme.blue"}
+            focusBorderColor={errors.mobile ? "red.500" : "siteTheme.blue"}
             bg={colorMode === "dark" ? "siteTheme.grey" : "siteTheme.white"}
-            type="email"
+            type="tel"
             color={colorMode === "dark" ? "siteTheme.white" : "siteTheme.grey"}
           />
           <FormErrorMessage fontSize={"10px"}>
-            {errors.email?.message}
+            {errors.mobile?.message}
           </FormErrorMessage>
         </FormControl>
 
@@ -149,6 +204,7 @@ const Login = () => {
             alignContent={"center"}
             fontSize={"18px"}
             gap={2}
+            isLoading={isSubmitting}
           >
             ورود
             <GoSignIn />
@@ -162,26 +218,6 @@ const Login = () => {
           </Text>
         </FormControl>
       </VStack>
-      <Divider w={"50%"} />
-      <Flex
-        flexDir={"column"}
-        alignItems={"center"}
-        gap={5}
-        as={"form"}
-        onSubmit={googleSignIn}
-        mt={"-1rem"}
-      >
-        <Text color={"siteTheme.white"}>یا</Text>
-        <Button
-          type="submit"
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          rightIcon={<FcGoogle fontSize={23} />}
-        >
-          Sign in with Google
-        </Button>
-      </Flex>
     </>
   );
 };

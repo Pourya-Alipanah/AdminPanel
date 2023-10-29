@@ -33,5 +33,6 @@ body,html{
 ::-webkit-scrollbar-track {
     border-radius: 10px;
 }
-
-
+.Toastify__toast--rtl {
+    text-align: center;
+}

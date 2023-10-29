@@ -12,21 +12,28 @@ import {
   FormErrorMessage,
   useColorMode,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link as RouterLink, useNavigate, useNavigation, useSubmit } from "react-router-dom";
+import {
+  Link as RouterLink,
+  useActionData,
+  useNavigate,
+  useNavigation,
+  useRouteError,
+  useSubmit,
+} from "react-router-dom";
 import { BsPersonFillAdd } from "react-icons/bs";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { toast } from "react-toastify";
 
 const Register = () => {
-
   const resolver = yup.object({
-    email: yup
+    mobile: yup
       .string()
-      .email("ایمیل وارد شده نامعتبر است")
-      .required("وارد کردن ایمیل الزامی است"),
+      .min(11, "شماره تماس میبایست 11 رقم باشد")
+      .max(11, "شماره تماس میبایست 11 رقم باشد")
+      .required("وارد کردن شماره تماس الزامی است"),
     password: yup
       .string()
       .min(8, "طول رمز عبور میبایست بیشتر از 8 کاراکتر باشد"),
@@ -40,30 +47,68 @@ const Register = () => {
 
   const { colorMode } = useColorMode();
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  
-  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
-  
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(resolver) });
-  
-  
-  const isSubmitting = navigation.state !== 'idle'
-  
-  const submitForm = useSubmit()
+
+  const isSubmitting = navigation.state !== "idle";
+
+  const submitForm = useSubmit();
 
   const onSubmit = (data) => {
     // eslint-disable-next-line no-unused-vars
-    const {confirmPassword , ...userData} = data
+    const { confirmPassword, ...userData } = data;
 
-    submitForm(userData , {method:'POST'})
+    submitForm(userData, { method: "POST" });
   };
+
+  const isSuccsessOperation = useActionData() || false;
+
+  const routeErrors = useRouteError() || false;
+
+  const errorMessage = routeErrors.response?.data
+    .map((error) => error.code)
+    .join();
+
+  useEffect(() => {
+    if (isSuccsessOperation) {
+      toast.success("ثبت نام با موفقیت انجام شد. به صفحه ورود منتقل میشوید", {
+        position: "bottom-center",
+        autoClose: 1300,
+        pauseOnHover: false,
+        draggable: true,
+        closeButton: false,
+        theme: colorMode === "dark" ? "dark" : "light",
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccsessOperation]);
+
+  useEffect(() => {
+    if (routeErrors) {
+      toast.error(
+        errorMessage === "DuplicateUserName"
+          ? "این شماره موبایل قبلا در سیستم ثبت شده است"
+          : "خطای ناشناخته",
+        {
+          position: "bottom-center",
+          autoClose: false,
+          pauseOnHover: false,
+          draggable: true,
+          theme: colorMode === "dark" ? "dark" : "light",
+        }
+      );
+    }
+  }, [routeErrors]);
 
   return (
     <>
@@ -72,24 +117,24 @@ const Register = () => {
       </Heading>
 
       <VStack as={"form"} spacing={4} onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={errors.email}>
+        <FormControl isInvalid={errors.mobile}>
           <FormLabel
             fontSize={"13px"}
             fontWeight={"bold"}
             color={"siteTheme.white"}
           >
-            آدرس ایمیل
+            شماره موبایل
           </FormLabel>
           <Input
-            {...register("email")}
+            {...register("mobile")}
             errorBorderColor="red.500"
-            focusBorderColor={errors.email ? "red.500" : "siteTheme.blue"}
+            focusBorderColor={errors.mobile ? "red.500" : "siteTheme.blue"}
             bg={colorMode === "dark" ? "siteTheme.grey" : "siteTheme.white"}
-            type="email"
+            type="tel"
             color={colorMode === "dark" ? "siteTheme.white" : "siteTheme.grey"}
           />
           <FormErrorMessage fontSize={"10px"}>
-            {errors.email?.message}
+            {errors.mobile?.message}
           </FormErrorMessage>
         </FormControl>
 

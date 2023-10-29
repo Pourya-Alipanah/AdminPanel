@@ -1,20 +1,11 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { appAuth } from "@components/firebaseConfig";
-
-const auth = getAuth(appAuth);
+import { httpService } from "@core/http-service";
 
 export const loginAction = async ({ request }) => {
-  try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
-    const signIn = await signInWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    );
-    const res = signIn.user;
-    return res;
-  } catch (error) {
-    return error.message;
-  }
-};
+    const res = await httpService.post('Users/login',data)
+    if(res.status === 200){
+      localStorage.setItem('token' , res?.data.token )
+      return true
+    }
+}
