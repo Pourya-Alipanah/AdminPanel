@@ -1,11 +1,10 @@
-// eslint-disable-next-line no-unused-vars
 import { createBrowserRouter } from "react-router-dom";
-import Login from "./features/identity/components/Login";
-import Register from "./features/identity/components/Register";
+import Login from "./features/identity/components/login/Login";
+import Register from "./features/identity/components/register/Register";
 import IdentityLayout from "./layouts/IdentityLayout";
 import MainLayout from "./layouts/MainLayout";
-import { loginAction } from "./features/identity/components/loginAction";
-import { registerAction } from "./features/identity/components/registerAction";
+import { loginAction } from "./features/identity/components/login/loginAction";
+import { registerAction } from "./features/identity/components/register/registerAction";
 import Courses from "./pages/Courses";
 
 const router = createBrowserRouter([

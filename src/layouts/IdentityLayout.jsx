@@ -19,7 +19,7 @@ const IdentityLayout = () => {
         display={"flex"}
         alignItems={"center"}
         w={"100%"}
-        h={{ md: "60px", base: "60px" }}
+        h={'60px'}
         justifyContent={"start"}
         gap={10}
       >
