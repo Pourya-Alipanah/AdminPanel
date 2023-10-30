@@ -17,19 +17,21 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { toast } from "react-toastify";
+import { HiBars3BottomRight } from "react-icons/hi2";
 
 const MainLayout = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isOpen2, onToggle } = useDisclosure();
   const [sideBarSize, setSideBarSize] = useState("small");
 
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const logOut = () => {
@@ -46,9 +48,19 @@ const MainLayout = () => {
     }, 2000);
   };
 
+  const sideBarSizeHandler = () => {
+    setSideBarSize((prevState) => (prevState === "large" ? "small" : "large"));
+    onToggle();
+  };
+
   return (
     <Flex w={"100vw"} h={"100vh"} flexDir={"row"}>
-      <SideBar sideBarSize={sideBarSize} setSideBarSize={setSideBarSize} />
+      <SideBar
+        sideBarSize={sideBarSize}
+        setSideBarSize={setSideBarSize}
+        isOpen={isOpen2}
+        onToggle={onToggle}
+      />
       <Flex as={"main"} flexDir={"column"} w={"100%"}>
         <Flex
           as={"nav"}
@@ -58,7 +70,20 @@ const MainLayout = () => {
           justifyContent={"space-between"}
           px={5}
         >
-          <ChangeTheme />
+          <Flex alignItems={"center"} gap={3}>
+            <Button
+              display={{ md: "none", base: "flex" }}
+              background={"unset"}
+              p={0}
+              color={
+                colorMode === "dark" ? "siteTheme.white" : "siteTheme.grey"
+              }
+              onClick={sideBarSizeHandler}
+            >
+              <HiBars3BottomRight size={"30px"} />
+            </Button>
+            <ChangeTheme />
+          </Flex>
           <Button size={"sm"} colorScheme="red" onClick={onOpen}>
             خروج
           </Button>

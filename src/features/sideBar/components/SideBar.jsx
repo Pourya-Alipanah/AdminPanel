@@ -9,16 +9,17 @@ import {
   Text,
   Tooltip,
   useColorMode,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { HiBars3BottomRight } from "react-icons/hi2";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { BiCategory } from "react-icons/bi";
 import avatarPic from "@assets/images/pourya-alipanah.jpg";
 import { useState } from "react";
+import NavItem from "./NavItem";
 
 // don't forget children props for outlet //
-const SideBar = ({ sideBarSize, setSideBarSize }) => {
+const SideBar = ({ sideBarSize, setSideBarSize, isOpen, onToggle }) => {
   const [isOnline, setIsOnline] = useState(false);
-  const { isOpen, onToggle } = useDisclosure();
   const { colorMode } = useColorMode();
 
   const sideBarSizeHandler = () => {
@@ -40,7 +41,7 @@ const SideBar = ({ sideBarSize, setSideBarSize }) => {
         transitionDuration={"600ms"}
         w={{
           md: sideBarSize === "large" ? "250px" : "70px",
-          base: sideBarSize === "large" ? "100vw" : "0",
+          base: sideBarSize === "large" ? "250px" : "0",
         }}
         bg={colorMode === "dark" ? "siteTheme.black" : "siteTheme.grey"}
         pos={"sticky"}
@@ -51,6 +52,7 @@ const SideBar = ({ sideBarSize, setSideBarSize }) => {
         <Flex w={"100%"} justifyContent={"end"}>
           <LightMode>
             <Button
+              display={{ md: "block", base: "none" }}
               background={"unset"}
               colorScheme="messenger"
               onClick={sideBarSizeHandler}
@@ -59,33 +61,53 @@ const SideBar = ({ sideBarSize, setSideBarSize }) => {
             </Button>
           </LightMode>
         </Flex>
+        <NavItem
+          title={"همه دوره ها"}
+          icon={FaChalkboardTeacher}
+          isOpen={isOpen}
+          linkTo={"/"}
+        />
+        <NavItem
+          title={"دسته بندی دوره ها"}
+          icon={BiCategory}
+          isOpen={isOpen}
+          linkTo={"/category"}
+        />
         <Flex
           flexDir={"row-reverse"}
           alignItems={"center"}
           justifyContent={"center"}
           gap={3}
         >
-            <Tooltip
-              hasArrow
-              label={
-                isOnline
-                  ? "برای آفلاین شدن کلیک کنید"
-                  : "برای آنلاین شدن کلیک کنید"
-              }
-              bg={isOnline ? "tomato" : "siteTheme.blue"}
-              color="black"
-              placement="top-start"
-            >
-              <button onClick={onlineClickHandler}>
-                <Avatar src={avatarPic} loading="lazy">
-                  <AvatarBadge
-                    boxSize="1em"
-                    bg={isOnline ? "siteTheme.blue" : "tomato"}
-                    borderColor={colorMode === "dark" ? "siteTheme.black" : "siteTheme.grey"}
-                  />
-                </Avatar>
-              </button>
-            </Tooltip>
+          <Tooltip
+            hasArrow
+            label={
+              isOnline
+                ? "برای آفلاین شدن کلیک کنید"
+                : "برای آنلاین شدن کلیک کنید"
+            }
+            bg={isOnline ? "tomato" : "siteTheme.blue"}
+            color="black"
+            placement="top-start"
+          >
+            <button onClick={onlineClickHandler}>
+              <Avatar
+                src={avatarPic}
+                loading="lazy"
+                size={{ md: "md", base: "sm" }}
+                display={{ md: "block", base: isOpen ? "block" : "none" }}
+              >
+                <AvatarBadge
+                  placement="bottom-start"
+                  boxSize="1em"
+                  bg={isOnline ? "siteTheme.blue" : "tomato"}
+                  borderColor={
+                    colorMode === "dark" ? "siteTheme.black" : "siteTheme.grey"
+                  }
+                />
+              </Avatar>
+            </button>
+          </Tooltip>
           <ScaleFade
             initialScale={0.5}
             in={isOpen}
@@ -95,7 +117,12 @@ const SideBar = ({ sideBarSize, setSideBarSize }) => {
               exit: { delay: 0 },
             }}
           >
-            <Text color="siteTheme.white">Pourya Alipanah</Text>
+            <Text
+              fontSize={{ md: "md", sm: "sm", base: "xs" }}
+              color="siteTheme.white"
+            >
+              Pourya Alipanah
+            </Text>
           </ScaleFade>
         </Flex>
       </Flex>
