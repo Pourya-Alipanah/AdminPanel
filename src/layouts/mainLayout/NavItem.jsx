@@ -10,8 +10,12 @@ import {
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
+import { useAppContext } from "@context/appContext";
+
 // eslint-disable-next-line react/prop-types
-const NavItem = ({ title, icon, isOpen, linkTo }) => {
+const NavItem = ({ title, icon, linkTo }) => {
+  const { showSideBar: isOpen } = useAppContext();
+
   const { colorMode } = useColorMode();
 
   return (
@@ -36,7 +40,11 @@ const NavItem = ({ title, icon, isOpen, linkTo }) => {
               gap={3}
               h={"29px"}
             >
-              <Icon as={icon} fontSize={18} display={{ md: "block", base: isOpen ? "block" : "none" }}/>
+              <Icon
+                as={icon}
+                fontSize={18}
+                display={{ md: "block", base: isOpen ? "block" : "none" }}
+              />
               <ScaleFade
                 initialScale={0.5}
                 in={isOpen}

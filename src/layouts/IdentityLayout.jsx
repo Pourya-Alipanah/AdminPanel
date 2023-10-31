@@ -1,6 +1,7 @@
 import { Container, Box, Grid, VStack, useColorMode } from "@chakra-ui/react";
-import ChangeTheme from "@components/ChangeTheme";
 import { Outlet } from "react-router-dom";
+
+import ChangeTheme from "@components/ChangeTheme";
 
 const IdentityLayout = () => {
   const { colorMode } = useColorMode();
@@ -19,7 +20,7 @@ const IdentityLayout = () => {
         display={"flex"}
         alignItems={"center"}
         w={"100%"}
-        h={'60px'}
+        h={"60px"}
         justifyContent={"start"}
         gap={10}
       >

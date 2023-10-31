@@ -3,24 +3,24 @@ import appReducer from "./appReducer";
 
 const AppContext = createContext();
 
-const sysDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
 const initialState = {
-  theme:
-    localStorage.getItem("theme") ||
-    (sysDarkTheme ? "dark" : "light"),
+  sideBarSize: "small",
+  showSideBar: false,
 };
 
 // eslint-disable-next-line react/prop-types
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  const changeTheme = (theme) => {
-    dispatch({ type: "CHANGE_THEME", payLoad: theme });
+  const toggleSideBar = () => {
+    dispatch({ type: "TOGGLE_SIDEBAR" });
+  };
+  const setSideBarSize = () => {
+    dispatch({ type: "SET_SIDEBAR_SIZE" });
   };
 
   return (
-    <AppContext.Provider value={{ ...state, changeTheme }}>
+    <AppContext.Provider value={{ ...state, toggleSideBar, setSideBarSize }}>
       {children}
     </AppContext.Provider>
   );

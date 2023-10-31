@@ -13,17 +13,22 @@ import {
 import { HiBars3BottomRight } from "react-icons/hi2";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
-import avatarPic from "@assets/images/pourya-alipanah.jpg";
 import { useState } from "react";
+
+import avatarPic from "@assets/images/pourya-alipanah.jpg";
 import NavItem from "./NavItem";
+import { useAppContext } from "@context/appContext";
 
 // don't forget children props for outlet //
-const SideBar = ({ sideBarSize, setSideBarSize, isOpen, onToggle }) => {
+const SideBar = () => {
+  const { showSideBar: isOpen, toggleSideBar: onToggle } = useAppContext();
+  const { sideBarSize, setSideBarSize } = useAppContext();
+
   const [isOnline, setIsOnline] = useState(false);
   const { colorMode } = useColorMode();
 
   const sideBarSizeHandler = () => {
-    setSideBarSize((prevState) => (prevState === "large" ? "small" : "large"));
+    setSideBarSize();
     onToggle();
   };
 
@@ -47,7 +52,7 @@ const SideBar = ({ sideBarSize, setSideBarSize, isOpen, onToggle }) => {
         pos={"sticky"}
         right={0}
         top={0}
-        gap={5}
+        gap={{ md: 6, sm: 5, base: 2 }}
       >
         <Flex w={"100%"} justifyContent={"end"}>
           <LightMode>
@@ -64,13 +69,11 @@ const SideBar = ({ sideBarSize, setSideBarSize, isOpen, onToggle }) => {
         <NavItem
           title={"همه دوره ها"}
           icon={FaChalkboardTeacher}
-          isOpen={isOpen}
           linkTo={"/"}
         />
         <NavItem
           title={"دسته بندی دوره ها"}
           icon={BiCategory}
-          isOpen={isOpen}
           linkTo={"/category"}
         />
         <Flex

@@ -1,10 +1,15 @@
 const appReducer = (state, action) => {
   switch (action.type) {
-    case "CHANGE_THEME": {
-      localStorage.setItem("theme", action.payLoad);
+    case "TOGGLE_SIDEBAR": {
       return {
         ...state,
-        theme: action.payLoad,
+        showSideBar: !state.showSideBar,
+      };
+    }
+    case "SET_SIDEBAR_SIZE": {
+      return {
+        ...state,
+        sideBarSize: state.sideBarSize === "large" ? "small" : "large",
       };
     }
   }
