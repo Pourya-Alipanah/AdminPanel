@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { BsClock } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
+import placeHolder from "@assets/images/placeHolder.png";
 
 
 // eslint-disable-next-line react/prop-types
@@ -51,7 +52,8 @@ const CourseCard = ({courseLevel , coverImageUrl , title , description , duratio
         <Image
           src={coverImageUrl}
           borderRadius="lg"
-          loading="lazy"
+          fallbackSrc={placeHolder}
+          fallbackStrategy={"beforeLoadOrError"}
         />
         <Flex w={"100%"} alignItems={"center"} mt="6">
           <Badge
