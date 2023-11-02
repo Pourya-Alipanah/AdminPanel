@@ -75,7 +75,7 @@ const TopNav = () => {
       </Button>
       <Modal
       size={{md:'md' , base:'xs'}}
-        blockScrollOnMount={false}
+        blockScrollOnMount
         closeOnEsc
         isOpen={isOpen}
         onClose={onClose}

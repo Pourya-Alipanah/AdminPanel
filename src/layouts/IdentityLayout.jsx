@@ -11,7 +11,7 @@ const IdentityLayout = () => {
       maxW={"full"}
       p={0}
       bg={colorMode === "dark" ? "siteTheme.grey" : "siteTheme.white"}
-      w={"100vw"}
+      w={"100%"}
       h={"full"}
     >
       <Box

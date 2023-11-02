@@ -10,9 +10,6 @@
 *,html,body{
     font-family: iranYekan !important;
 }
-body,html{
-    overflow-x: hidden !important;
-}
 *{
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;

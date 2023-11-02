@@ -22,11 +22,11 @@ const MainLayout = () => {
   }, [token]);
 
   return (
-    <Flex w={"100vw"} h={"100vh"} flexDir={"row"}>
+    <Flex w={"100%"} minH={"100vh"} flexDir={"row"}>
       <SideBar/>
-      <Flex as={"main"} flexDir={"column"} w={"100%"}>
+      <Flex as={"main"} flexDir={"column"} w={"100%"} overflowX={'hidden'}>
         <TopNav />
-        <Container p={5} maxW={"full"} w={"full"} h={"full"}>
+        <Container p={5} maxW={"full"} w={"full"} minH={"calc(100vh - 38px - 60px)"} >
           <Outlet />
         </Container>
         <Divider borderColor={"#777"} />
@@ -35,6 +35,7 @@ const MainLayout = () => {
           alignItems={"center"}
           justifyContent={"center"}
           py={2}
+          h={'37px'}
         >
           <Text fontSize={{ md: "sm", sm: "sm", base: "9.9px" }} color={"#777"}>
             Pourya-Alipanah @2023

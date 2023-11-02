@@ -5,8 +5,9 @@ import IdentityLayout from "./layouts/IdentityLayout";
 import MainLayout from "./layouts/mainLayout/MainLayout";
 import { loginAction } from "./features/identity/components/login/loginAction";
 import { registerAction } from "./features/identity/components/register/registerAction";
-import Courses from "./pages/Courses";
+import Courses from "./pages/courses/Courses";
 import Category from "./pages/Category";
+import coursesLoader from "./pages/courses/coursesLoader";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,8 @@ const router = createBrowserRouter([
     children:[
       {
         element: <Courses/>,
-        index: true
+        index: true,
+        loader: coursesLoader
       },
       {
         path:"/category",
