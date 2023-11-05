@@ -79,7 +79,7 @@ const Register = () => {
   useEffect(() => {
     if (isSuccsessOperation) {
       toast.success("ثبت نام با موفقیت انجام شد. به صفحه ورود منتقل میشوید", {
-        position: "bottom-center",
+        position: "top-center",
         autoClose: 1300,
         pauseOnHover: false,
         draggable: true,
@@ -100,7 +100,7 @@ const Register = () => {
           ? "این شماره موبایل قبلا در سیستم ثبت شده است"
           : "خطای ناشناخته",
         {
-          position: "bottom-center",
+          position: "top-center",
           autoClose: false,
           pauseOnHover: false,
           draggable: true,

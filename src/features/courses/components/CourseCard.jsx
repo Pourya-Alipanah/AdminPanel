@@ -5,8 +5,8 @@ import {
   CardFooter,
   Divider,
   Flex,
-  Heading,
   Image,
+  Link,
   Stack,
   Text,
   useColorMode,
@@ -14,10 +14,11 @@ import {
 import { BsClock } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
 import placeHolder from "@assets/images/placeHolder.png";
+import { Link as RouterLink } from "react-router-dom";
 
 
 // eslint-disable-next-line react/prop-types
-const CourseCard = ({courseLevel , coverImageUrl , title , description , duration , numOfReviews}) => {
+const CourseCard = ({courseLevel , coverImageUrl , title , description , duration , numOfReviews , id}) => {
     
   const { colorMode } = useColorMode();
 
@@ -66,7 +67,7 @@ const CourseCard = ({courseLevel , coverImageUrl , title , description , duratio
           </Badge>
         </Flex>
         <Stack mt="3" spacing="5">
-          <Heading size={{ md: "sm", base: "xs" }}>{title}</Heading>
+          <Link as={RouterLink} to={`/courses/${id}`} color={'siteTheme.blue'} fontWeight={'bold'} size={{ md: "sm", base: "xs" }}>{title}</Link>
           <Text noOfLines={{ md: 3, base: 2 }} fontSize={"xs"}>
             {description}
           </Text>

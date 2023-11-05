@@ -37,7 +37,7 @@ const TopNav = () => {
 
   const logOut = () => {
     toast.error("در حال خروج از حساب کاربری", {
-      position: "bottom-center",
+      position: "top-center",
       autoClose: 1600,
       pauseOnHover: false,
       draggable: true,

@@ -79,7 +79,7 @@ const Login = () => {
   useEffect(() => {
     if (token && !isSuccsessOperation) {
       toast.info(<RedirectToastDialog />, {
-        position: "bottom-center",
+        position: "top-center",
         autoClose: 1300,
         pauseOnHover: false,
         draggable: true,
@@ -95,7 +95,7 @@ const Login = () => {
   useEffect(() => {
     if (isSuccsessOperation) {
       toast.success("در حال ورود", {
-        position: "bottom-center",
+        position: "top-center",
         autoClose: 1300,
         pauseOnHover: false,
         draggable: true,
@@ -116,7 +116,7 @@ const Login = () => {
           ? "شماره موبایل و یا رمز عبور نادرست است"
           : "خطای ناشناخته",
         {
-          position: "bottom-center",
+          position: "top-center",
           autoClose: 5000,
           pauseOnHover: false,
           draggable: true,
