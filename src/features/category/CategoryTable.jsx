@@ -20,11 +20,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { RiDeleteBinLine, RiEdit2Line } from "react-icons/ri";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Pagination from "@components/Pagination";
 import { httpInterceptedServices } from "@core/http-service";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import DeleteModal from "./DeleteModal";
 
@@ -40,16 +40,17 @@ const CategoryTable = ({ categories: { data, totalRecords } }) => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  useEffect(() => {
-    console.log(selectedCategory);
-  }, [selectedCategory]);
-
-  const navigate = useNavigate();
-
   const deleteCategory = (categoryId) => {
     setSelectedCategory(categoryId);
     onOpen2();
   };
+
+  const [searchParams , setSearchParams] = useSearchParams()
+
+  
+  const currentPage = Number(searchParams.get('page')) || 1
+  
+  const pageSize = import.meta.env.VITE_PAGE_SIZE
 
   const handleDeleteCategory = async () => {
     onClose2();
@@ -63,8 +64,12 @@ const CategoryTable = ({ categories: { data, totalRecords } }) => {
         pending: "در حال حذف دسته بندی",
         success: {
           render() {
-            const url = new URL(window.location.href);
-            navigate(url.pathname + url.search);
+            
+            if(totalRecords % pageSize === 1){
+              setSearchParams({page: currentPage - 1})
+            }else{
+              setSearchParams({page: currentPage})
+            }
             return "عملیات حذف با موفقیت انجام شد";
           },
         },
@@ -80,12 +85,13 @@ const CategoryTable = ({ categories: { data, totalRecords } }) => {
       },
       {
         position: "top-left",
-        autoClose: 3000,
+        autoClose: 1500,
         draggable: true,
         theme: colorMode === "dark" ? "dark" : "light",
       }
     );
   };
+
 
   return (
     <TableContainer w={"80%"} overflowX={"hidden"} pt={10}>
@@ -121,7 +127,7 @@ const CategoryTable = ({ categories: { data, totalRecords } }) => {
           ))}
         </Tbody>
         <TableCaption>
-          <Pagination totalRecords={totalRecords} />
+          <Pagination totalRecords={totalRecords} pageSize={pageSize}/>
         </TableCaption>
       </Table>
       <Drawer placement={"top"} onClose={onClose} isOpen={isOpen}>

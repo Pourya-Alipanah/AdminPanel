@@ -4,7 +4,7 @@ import {TiChevronLeft, TiChevronRight} from 'react-icons/ti'
 import { useSearchParams } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const Pagination = ({ totalRecords, pageSize = 4 }) => {
+const Pagination = ({ totalRecords, pageSize}) => {
 
   const pages = Math.ceil(totalRecords / pageSize);
 
