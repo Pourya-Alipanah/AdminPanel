@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { httpInterceptedServices } from "@core/http-service";
 import { useEffect } from "react";
-import { useCategoryContext } from "@context/CategoryContext";
+import { useCategoryContext } from "@context/categoryContext";
 
 // eslint-disable-next-line react/prop-types
 const EditDrawer = ({onClose , isOpen }) => {

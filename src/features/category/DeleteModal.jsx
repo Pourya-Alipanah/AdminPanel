@@ -11,7 +11,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { httpInterceptedServices } from "@core/http-service";
-import { useCategoryContext } from "@context/CategoryContext";
+import { useCategoryContext } from "@context/categoryContext";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 

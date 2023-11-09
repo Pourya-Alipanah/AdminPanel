@@ -15,7 +15,7 @@ import { RiDeleteBinLine, RiEdit2Line } from "react-icons/ri";
 
 import Pagination from "@components/Pagination";
 import DeleteModal from "./DeleteModal";
-import { useCategoryContext } from "@context/CategoryContext";
+import { useCategoryContext } from "@context/categoryContext";
 import EditDrawer from "../category/EditDrawer";
 
 const CategoryTable = ({ categories: { data, totalRecords } }) => {
