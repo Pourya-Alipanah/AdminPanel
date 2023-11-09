@@ -11,11 +11,7 @@ import coursesLoader from "@pages/courses/coursesLoader";
 import CourseDetails from "@pages/courses/CourseDetails";
 import courseDetailsLoader from "@pages/courses/courseDetailsLoader";
 import { categoryListLoader } from "@pages/categoryListLoader";
-<<<<<<< HEAD
 import { CategoryProvider } from "@context/categoryContext";
-=======
-import { CategoryProvider } from "@context/CategoryContext";
->>>>>>> 8c3c527ad6bfeaea188468acdfce38223c2374e5
 
 const router = createBrowserRouter([
   {
