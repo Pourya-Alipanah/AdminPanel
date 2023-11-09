@@ -41,67 +41,69 @@ const CategoryTable = ({ categories: { data, totalRecords } }) => {
   };
 
   return (
-    <TableContainer w={"80%"} overflowX={"hidden"} pt={10}>
-      
-      <Table variant="striped" colorScheme="messenger">
+    <>
+      <TableContainer w={"80%"} overflowX={"hidden"} pt={10}>
+        
+        <Table variant="striped" colorScheme="messenger">
 
-        <Thead>
+          <Thead>
 
-          <Tr>
-            <Th>نام دوره</Th>
-            <Th>عملیات</Th>
-          </Tr>
-
-        </Thead>
-
-        <Tbody>
-          {data.map((category) => (
-
-            <Tr key={category.id}>
-
-              <Td fontSize={{ md: "md", base: "sm" }} pe={{ sm: 6, base: 0 }}>
-                {category.name}
-              </Td>
-
-              <Td
-                fontSize={{ md: "md", base: "sm" }}
-                ps={{ sm: 6, base: 6 }}
-                pe={0}
-              >
-
-                <Flex gap={4}>
-                  <button onClick={() => editCategory(category)}>
-                    <RiEdit2Line />
-                  </button>
-                  <button onClick={() => deleteCategory(category.id)}>
-                    <RiDeleteBinLine />
-                  </button>
-                </Flex>
-
-              </Td>
-
+            <Tr>
+              <Th>نام دوره</Th>
+              <Th>عملیات</Th>
             </Tr>
 
-          ))}
-        </Tbody>
+          </Thead>
 
-        <TableCaption>
+          <Tbody>
+            {data.map((category) => (
 
-          <Pagination totalRecords={totalRecords} />
+              <Tr key={category.id}>
 
-        </TableCaption>
+                <Td fontSize={{ md: "md", base: "sm" }} pe={{ sm: 6, base: 0 }}>
+                  {category.name}
+                </Td>
 
-      </Table>
+                <Td
+                  fontSize={{ md: "md", base: "sm" }}
+                  ps={{ sm: 6, base: 6 }}
+                  pe={0}
+                >
 
-      <EditDrawer isOpen={isOpen} onClose={onClose} />
+                  <Flex gap={4}>
+                    <button onClick={() => editCategory(category)}>
+                      <RiEdit2Line />
+                    </button>
+                    <button onClick={() => deleteCategory(category.id)}>
+                      <RiDeleteBinLine />
+                    </button>
+                  </Flex>
 
-      <DeleteModal
-        isOpen={isOpen2}
-        onClose={onClose2}
-        totalRecords={totalRecords}
-      />
+                </Td>
 
-    </TableContainer>
+              </Tr>
+
+            ))}
+          </Tbody>
+
+          <TableCaption>
+              {data.red}
+            <Pagination totalRecords={totalRecords} />
+
+          </TableCaption>
+
+        </Table>
+
+        <EditDrawer isOpen={isOpen} onClose={onClose} />
+
+        <DeleteModal
+          isOpen={isOpen2}
+          onClose={onClose2}
+          totalRecords={totalRecords}
+        />
+
+      </TableContainer>
+    </>
   );
 };
 

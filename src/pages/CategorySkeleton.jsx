@@ -102,6 +102,46 @@ const CategorySkeleton = () => {
               </Flex>
             </Td>
           </Tr>
+          <Tr>
+            <Td fontSize={{ md: "md", base: "sm" }} pe={{ sm: 6, base: 0 }}>
+              <Skeleton maxW={'140px'}>Programming</Skeleton>
+            </Td>
+            <Td
+              fontSize={{ md: "md", base: "sm" }}
+              ps={{ sm: 6, base: 6 }}
+              pe={0}
+            >
+              <Flex gap={4}>
+                <button>
+                  <RiEdit2Line />
+                </button>
+
+                <button>
+                  <RiDeleteBinLine />
+                </button>
+              </Flex>
+            </Td>
+          </Tr>
+          <Tr>
+            <Td fontSize={{ md: "md", base: "sm" }} pe={{ sm: 6, base: 0 }}>
+              <Skeleton maxW={'140px'}>Programming</Skeleton>
+            </Td>
+            <Td
+              fontSize={{ md: "md", base: "sm" }}
+              ps={{ sm: 6, base: 6 }}
+              pe={0}
+            >
+              <Flex gap={4}>
+                <button>
+                  <RiEdit2Line />
+                </button>
+
+                <button>
+                  <RiDeleteBinLine />
+                </button>
+              </Flex>
+            </Td>
+          </Tr>
         </Tbody>
       </Table>
     </TableContainer>

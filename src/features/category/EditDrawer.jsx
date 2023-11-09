@@ -40,7 +40,6 @@ const EditDrawer = ({onClose , isOpen }) => {
     const currentPage = Number(searchParams.get("page")) || 1;
 
     const onSubmit = (data) => {
-        console.log(data);
         onClose();
         const res = httpInterceptedServices.post(`/CourseCategory/`, data);
         toast.promise(
@@ -104,9 +103,10 @@ const EditDrawer = ({onClose , isOpen }) => {
                 alignItems={"center"}
                 justifyContent={"center"}
               >
-                <FormLabel>نام دسته بندی</FormLabel>
+                <FormLabel fontSize={{ md: "md", sm:'sm' , base: "xs" }}>نام دسته بندی</FormLabel>
                 <Input
-                  maxW={"20%"}
+                  fontSize={{ md: "md", base: "sm" }}
+                  maxW={{md:"30%",base:'50%'}}
                   {...register("name")}
                   errorBorderColor="red.500"
                   focusBorderColor={errors.name ? "red.500" : "siteTheme.blue"}

@@ -59,7 +59,7 @@ const DeleteModal = ({ isOpen, onClose, totalRecords /* actionClick */ }) => {
       },
       {
         position: "top-left",
-        autoClose: 1500,
+        autoClose: 500,
         draggable: true,
         theme: colorMode === "dark" ? "dark" : "light",
       }
