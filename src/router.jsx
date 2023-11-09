@@ -1,18 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "./features/identity/components/login/Login";
-import Register from "./features/identity/components/register/Register";
-import IdentityLayout from "./layouts/IdentityLayout";
-import MainLayout from "./layouts/mainLayout/MainLayout";
-import { loginAction } from "./features/identity/components/login/loginAction";
-import { registerAction } from "./features/identity/components/register/registerAction";
-import Courses from "./pages/courses/Courses";
-import Category from "./pages/Category";
-import coursesLoader from "./pages/courses/coursesLoader";
-import CourseDetails from "./pages/courses/CourseDetails";
-import courseDetailsLoader from "./pages/courses/courseDetailsLoader";
-import { categoryListLoader } from "./pages/categoryListLoader";
-import { CategoryProvider } from "./context/CategoryContext";
-// import courseDetailsLoader from "./pages/courses/courseDetailsLoader";
+import Login from "@features/identity/components/login/Login";
+import Register from "@features/identity/components/register/Register";
+import IdentityLayout from "@layouts/IdentityLayout";
+import MainLayout from "@layouts/mainLayout/MainLayout";
+import { loginAction } from "@features/identity/components/login/loginAction";
+import { registerAction } from "@features/identity/components/register/registerAction";
+import Courses from "@pages/courses/Courses";
+import Category from "@pages/Category";
+import coursesLoader from "@pages/courses/coursesLoader";
+import CourseDetails from "@pages/courses/CourseDetails";
+import courseDetailsLoader from "@pages/courses/courseDetailsLoader";
+import { categoryListLoader } from "@pages/categoryListLoader";
+import { CategoryProvider } from "@context/categoryContext";
 
 const router = createBrowserRouter([
   {
