@@ -10,11 +10,62 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
+import { httpInterceptedServices } from "@core/http-service";
+import { useCategoryContext } from "@context/CategoryContext";
+import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const DeleteModal = ({ isOpen, onClose , actionClick }) => {
+const DeleteModal = ({ isOpen, onClose, totalRecords /* actionClick */ }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentPage = Number(searchParams.get("page")) || 1;
+
+  const { selectedCategory } = useCategoryContext();
 
   const { colorMode } = useColorMode();
+
+  const pageSize = import.meta.env.VITE_PAGE_SIZE;
+
+  const handleDeleteCategory = async () => {
+    onClose();
+    const res = httpInterceptedServices.delete(
+      `/CourseCategory/${selectedCategory}`
+    );
+
+    toast.promise(
+      res,
+      {
+        pending: "در حال حذف دسته بندی",
+        success: {
+          render() {
+            if (totalRecords % pageSize === 1) {
+              setSearchParams({ page: currentPage - 1 });
+            } else {
+              setSearchParams({ page: currentPage });
+            }
+            return "عملیات حذف با موفقیت انجام شد";
+          },
+        },
+        error: {
+          render({ data }) {
+            const errMsg = data.response.data.code;
+
+            return errMsg === "DeleteIsNotPossible"
+              ? "امکان حذف این دسته بندی وجود ندارد"
+              : "خطا در انجام عملیات";
+          },
+        },
+      },
+      {
+        position: "top-left",
+        autoClose: 1500,
+        draggable: true,
+        theme: colorMode === "dark" ? "dark" : "light",
+      }
+    );
+  };
+
   return (
     <Modal
       size={{ md: "md", base: "xs" }}
@@ -41,7 +92,7 @@ const DeleteModal = ({ isOpen, onClose , actionClick }) => {
         <ModalFooter>
           <Button
             colorScheme="red"
-            onClick={actionClick}
+            onClick={handleDeleteCategory}
             size={{ md: "md", base: "sm" }}
           >
             حذف

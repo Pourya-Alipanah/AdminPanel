@@ -90,6 +90,7 @@ const Login = () => {
         navigate("/");
       }, 1000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   useEffect(() => {
@@ -124,6 +125,7 @@ const Login = () => {
         }
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routeErrors]);
 
   return (
@@ -146,8 +148,8 @@ const Login = () => {
             errorBorderColor="red.500"
             focusBorderColor={errors.mobile ? "red.500" : "siteTheme.blue"}
             bg={colorMode === "dark" ? "siteTheme.grey" : "siteTheme.white"}
-            type="tel"
             color={colorMode === "dark" ? "siteTheme.white" : "siteTheme.grey"}
+            type="tel"
           />
           <FormErrorMessage fontSize={"10px"}>
             {errors.mobile?.message}
