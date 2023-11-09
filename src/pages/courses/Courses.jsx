@@ -1,12 +1,22 @@
-import { Button, Container, Flex } from "@chakra-ui/react";
+import { Button, Container, Flex, useColorMode } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import CourseList from "@features/courses/components/CourseList";
 import { Await, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
 import CoursesSkeleton from "./CoursesSkeleton";
+import { toast } from "react-toastify";
 
 const Courses = () => {
   const coursesData = useLoaderData();
+  const {colorMode} = useColorMode()
+
+  const addCourseHandler = ()=>{
+    toast.info('متاسفانه این قابلیت رو نداریم :(',{
+      position: 'top-center',
+      autoClose:2000,
+      theme: colorMode==='dark' ? 'dark':'light'
+    })
+  }
 
   return (
     <Container maxW={"full"} h={"100%"} p={0}>
@@ -16,6 +26,7 @@ const Courses = () => {
           size={"sm"}
           rightIcon={<AiOutlinePlus />}
           display={{md:'flex' , base:'none'}}
+          onClick={addCourseHandler}
         >
           {" "}
           افزودن دوره جدید{" "}
@@ -25,6 +36,7 @@ const Courses = () => {
           size={"sm"}
           rightIcon={<AiOutlinePlus />}
           display={{md:'none' , base:'flex'}}
+          onClick={addCourseHandler}
         >
           {" "}
           دوره جدید{" "}
