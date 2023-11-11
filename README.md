@@ -7,13 +7,13 @@ https://pourya-alipanah-ap.netlify.app
 
 ### React.JS - React Router Dom @6.17.0 - Chakra UI - axios for CRUD - React Hook Form and Yup - React Toastify - Lodash - Vite JS
 
-## In this project, my purpose is to practice and use all I learned before, and along this way, I used these techniques to develop my project:
+## In this project, my purpose was to practice and use all I learned before, and along this way, I used these techniques to develop my project:
 ### CRUD: 
 Create: for Register User and add new Categories to the Database;
 ###
-Read: for Get user data for Auth and get posts from Database;
+Read: to Get user data for Authentication and get posts from the Database;
 ###
-Update: for Edit Categories use 'POST' verb and send the category ID and new category value to update them;
+Update: for Edit Categories I used 'POST' verb and sent the category ID and new category value to update them;
 ###
 Delete: for Delete Categories From Database.
 ### Deferred Data Loading Using React Router
