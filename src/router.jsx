@@ -14,6 +14,7 @@ import { categoryListLoader } from "@pages/categoryListLoader";
 import { CategoryProvider } from "@context/categoryContext";
 import NotFound from "@pages/NotFound";
 import UnhandledException from "@pages/UnhandledException";
+import Statistics from "./pages/Statistics";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
           </CategoryProvider>
         ),
         loader: categoryListLoader
+      },
+      {
+        path: '/statistics',
+        element: <Statistics/>,
+        loader: coursesLoader
       }
     ]
   },

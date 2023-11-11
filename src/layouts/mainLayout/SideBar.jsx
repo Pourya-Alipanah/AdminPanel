@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { HiBars3BottomRight } from "react-icons/hi2";
 import { FaChalkboardTeacher } from "react-icons/fa";
-import { BiCategory } from "react-icons/bi";
+import { BiCategory, BiLineChart } from "react-icons/bi";
 import { useState } from "react";
 
 import avatarPic from "@assets/images/pourya-alipanah.jpg";
@@ -75,6 +75,11 @@ const SideBar = () => {
           title={"دسته بندی دوره ها"}
           icon={BiCategory}
           linkTo={"/category"}
+        />
+        <NavItem
+          title={"آمار ها"}
+          icon={BiLineChart}
+          linkTo={"/statistics"}
         />
         <Flex
           flexDir={"row-reverse"}

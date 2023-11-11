@@ -5,7 +5,7 @@ https://pourya-alipanah-ap.netlify.app
 ##
 ### To develop this project, I used these :
 
-### React.JS - React Router Dom @6.17.0 - Chakra UI - axios for CRUD - React Hook Form and Yup - React Toastify - Lodash - Vite JS
+### React.JS - React Router Dom @6.17.0 - Chakra UI - axios for CRUD - Chart.js - React Hook Form and Yup - React Toastify - Lodash - Vite JS
 
 ## In this project, my purpose was to practice and use all I learned before, and along this way, I used these techniques to develop my project:
 ### CRUD: 
@@ -20,6 +20,7 @@ Delete: for Delete Categories From Database.
 ### Server Side Pagination
 ### Context API and Reducer
 ### Authentication and Main Layout Guarding
+### Show Statistics Data From server in Charts
 ### React Hooks
 ### 404 and Exception Error Handling
 
