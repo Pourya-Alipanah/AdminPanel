@@ -2,6 +2,9 @@
 
 ### For a visit:
 https://pourya-alipanah-ap.netlify.app
+### OR
+### You can watch the video:
+https://drive.google.com/open?id=11SahflJPJezlCNTAfCsI3ppvWo9Yo-g0&usp=drive_fs
 ##
 ### To develop this project, I used these :
 
