@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <ToastContainer limit={1} rtl />
+      <ToastContainer limit={2} rtl newestOnTop/>
     </>
   );
 }

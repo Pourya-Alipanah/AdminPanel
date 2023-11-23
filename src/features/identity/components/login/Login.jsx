@@ -28,6 +28,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
 const Login = () => {
+
   const resolver = yup.object({
     mobile: yup
       .string()
@@ -70,14 +71,36 @@ const Login = () => {
     .join();
 
   const token = localStorage.getItem("token");
+
   const RedirectToastDialog = () => (
     <>
       <div>شما قبلا وارد شده اید</div>
       <div>به صفحه اصلی منتقل میشوید</div>
     </>
   );
+
+  const InfoMsg = ()=>(
+    <>
+      <div style={{color:'black' , fontSize:'12px'}}>برای ثبت نام میتوانید از لینک پایین فرم برای ثبت نام استفاده کنید</div>
+      <div style={{color:'black', fontSize:'12px' , marginBottom:'5px'}}>و یا با اطلاعات زیر وارد شوید:</div>
+      <div style={{color:'black', fontSize:'15px'}}>شماره موبایل : 09123456789</div>
+      <div style={{color:'black', fontSize:'15px'}}>رمز عبور: 123456789</div>
+    </>
+  )
+  
+  useEffect(() => {
+    toast.warn(<InfoMsg />, {
+      position: "top-center",
+      autoClose: 20000,
+      draggable: true,
+      theme: 'colored',
+      toastId:1
+    });
+  }, []);
+
   useEffect(() => {
     if (token && !isSuccsessOperation) {
+      toast.dismiss(1)
       toast.info(<RedirectToastDialog />, {
         position: "top-center",
         autoClose: 1300,
@@ -95,6 +118,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccsessOperation) {
+      toast.dismiss(1)
       toast.success("در حال ورود", {
         position: "top-center",
         autoClose: 1300,
